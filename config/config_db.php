@@ -12,9 +12,9 @@ class DB extends DBmysql {
 
     public function __construct() {
         $this->dbhost = 'proyectos-instance-1.c8an9arwoaua.us-east-1.rds.amazonaws.com';
-        $this->dbuser = $_SERVER['dbuser'];
-        $this->dbpassword = $_SERVER['dbpassword'];
-        $this->dbdefault = $_SERVER['dbdefault'];
+        $this->dbuser = 'admin';
+        $this->dbpassword = 'Admin.2024*';
+        $this->dbdefault = 'glpiprod';
     }
 }
 ?>
