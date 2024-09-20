@@ -16,4 +16,3 @@ class DB extends DBmysql {
         $this->dbpassword = getenv('dbpassword'); // valor por defecto
         $this->dbdefault = getenv('dbdefault'); // valor por defecto
     }
-?>
