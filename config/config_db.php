@@ -10,7 +10,7 @@ class DB extends DBmysql {
     public $allow_datetime = false;
     public $allow_signed_keys = false;
 
-    public function __construct() {
+    public function initialize() {
         $this->dbhost = getenv('dbhost'); // valor por defecto
         $this->dbuser = getenv('dbuser'); // valor por defecto
         $this->dbpassword = getenv('dbpassword'); // valor por defecto
