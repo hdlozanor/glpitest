@@ -1,4 +1,9 @@
 <?php
+require 'path/to/aws.phar'; // Asegúrate de que la ruta sea correcta
+
+use Aws\SecretsManager\SecretsManagerClient;
+use Aws\Exception\AwsException;
+
 class DB extends DBmysql {
     public $dbhost;
     public $dbuser;
@@ -11,8 +16,31 @@ class DB extends DBmysql {
     public $allow_signed_keys = false;
 
     public function __construct() {
-        $this->dbhost = getenv('dbhost'); // valor por defecto
-        $this->dbuser = getenv('dbuser'); // valor por defecto
-        $this->dbpassword = getenv('dbpassword'); // valor por defecto
-        $this->dbdefault = getenv('dbdefault'); // valor por defecto
+        $this->loadSecrets();
     }
+
+    private function loadSecrets() {
+        $client = new SecretsManagerClient([
+            'version' => 'latest',
+            'region' => 'us-east-1', // Por ejemplo, 'us-west-2'
+        ]);
+
+        try {
+            $result = $client->getSecretValue([
+                'SecretId' => 'arn:aws:secretsmanager:us-east-1:699001025740:secret:MySQLProyectos-3rILWQ', // ID del secreto en Secrets Manager
+            ]);
+
+            if (isset($result['SecretString'])) {
+                $secret = json_decode($result['SecretString'], true);
+                $this->dbhost = $secret['host'];
+                $this->dbuser = $secret['username'];
+                $this->dbpassword = $secret['password'];
+                $this->$dbdefault = $secret['glpitest'];
+            }
+        } catch (AwsException $e) {
+            echo "Error al recuperar el secreto: " . $e->getMessage();
+        }
+    }
+}
+
+?>
