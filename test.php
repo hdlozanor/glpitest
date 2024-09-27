@@ -4,6 +4,11 @@ require 'config/aws.phar'; // Asegúrate de que la ruta sea correcta
 use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
 
+public $dbhost;
+public $dbuser;
+public $dbpassword;
+public $dbdefault;
+
 $client = new SecretsManagerClient([
             'version' => 'latest',
             'region' => 'us-east-1', // Por ejemplo, 'us-west-2'
