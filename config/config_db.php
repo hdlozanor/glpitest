@@ -1,5 +1,5 @@
 <?php
-require 'aws.phar'; // Asegúrate de que la ruta sea correcta
+require '../lib/aws.phar'; // Asegúrate de que la ruta sea correcta
 
 use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
