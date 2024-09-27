@@ -35,7 +35,7 @@ class DB extends DBmysql {
                 $this->dbhost = $secret['host'];
                 $this->dbuser = $secret['username'];
                 $this->dbpassword = $secret['password'];
-                $this->$dbdefault = $secret['glpitest'];
+                $this->$dbdefault = $secret['dbdefault'];
                 echo "<script>
                     console.log('DB Host: " . addslashes($this->dbhost) . "');
                     console.log('DB User: " . addslashes($this->dbuser) . "');
