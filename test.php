@@ -4,10 +4,10 @@ require 'config/aws.phar'; // Asegúrate de que la ruta sea correcta
 use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
 
-public $dbhost;
-public $dbuser;
-public $dbpassword;
-public $dbdefault;
+public $dbhost1;
+public $dbuser1;
+public $dbpassword1;
+public $dbdefault1;
 
 $client = new SecretsManagerClient([
             'version' => 'latest',
@@ -21,14 +21,14 @@ $client = new SecretsManagerClient([
 
             if (isset($result['SecretString'])) {
                 $secret = json_decode($result['SecretString'], true);
-                $this->dbhost = $secret['host'];
-                $this->dbuser = $secret['username'];
-                $this->dbpassword = $secret['password'];
-                $this->$dbdefault = $secret['dbdefault'];
+                $this->dbhost1 = $secret['host'];
+                $this->dbuser1 = $secret['username'];
+                $this->dbpassword1 = $secret['password'];
+                $this->$dbdefault1 = $secret['dbdefault'];
                 echo "<script>
-                    console.log('DB Host: " . addslashes($this->dbhost) . "');
-                    console.log('DB User: " . addslashes($this->dbuser) . "');
-                    console.log('DB Password: " . addslashes($this->dbpassword) . "');
+                    console.log('DB Host: " . addslashes($this->dbhost1) . "');
+                    console.log('DB User: " . addslashes($this->dbuser1) . "');
+                    console.log('DB Password: " . addslashes($this->dbpassword1) . "');
                 </script>";
             }
         } catch (AwsException $e) {
