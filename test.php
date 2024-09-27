@@ -1,26 +1,10 @@
 <?php
-require 'aws.phar'; // Asegúrate de que la ruta sea correcta
+require 'config/aws.phar'; // Asegúrate de que la ruta sea correcta
 
 use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
 
-class DB extends DBmysql {
-    public $dbhost;
-    public $dbuser;
-    public $dbpassword;
-    public $dbdefault;
-    public $use_timezones = true;
-    public $use_utf8mb4 = true;
-    public $allow_myisam = false;
-    public $allow_datetime = false;
-    public $allow_signed_keys = false;
-
-    public function __construct() {
-        $this->loadSecrets();
-    }
-
-    private function loadSecrets() {
-        $client = new SecretsManagerClient([
+$client = new SecretsManagerClient([
             'version' => 'latest',
             'region' => 'us-east-1', // Por ejemplo, 'us-west-2'
         ]);
@@ -45,9 +29,5 @@ class DB extends DBmysql {
         } catch (AwsException $e) {
             echo "Error al recuperar el secreto: " . $e->getMessage();
         }
-    }
-
-    
-}
 
 ?>
