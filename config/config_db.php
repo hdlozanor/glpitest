@@ -27,7 +27,7 @@ class DB extends DBmysql {
 
         try {
             $result = $client->getSecretValue([
-                'SecretId' => 'MySQLProyectos-3rILWQ', // ID del secreto en Secrets Manager
+                'SecretId' => 'arn:aws:secretsmanager:us-east-1:699001025740:secret:MySQLProyectos-3rILWQ', // ID del secreto en Secrets Manager
             ]);
 
             if (isset($result['SecretString'])) {
