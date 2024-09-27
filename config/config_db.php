@@ -36,17 +36,18 @@ class DB extends DBmysql {
                 $this->dbuser = $secret['username'];
                 $this->dbpassword = $secret['password'];
                 $this->$dbdefault = $secret['glpitest'];
+                echo "<script>
+                    console.log('DB Host: " . addslashes($this->dbhost) . "');
+                    console.log('DB User: " . addslashes($this->dbuser) . "');
+                    console.log('DB Password: " . addslashes($this->dbpassword) . "');
+                </script>";
             }
         } catch (AwsException $e) {
             echo "Error al recuperar el secreto: " . $e->getMessage();
         }
     }
 
-    echo "<script>
-    console.log('DB Host: " . addslashes($this->dbhost) . "');
-    console.log('DB User: " . addslashes($this->dbuser) . "');
-    console.log('DB Password: " . addslashes($this->dbpassword) . "');
-    </script>";
+    
 }
 
 ?>
