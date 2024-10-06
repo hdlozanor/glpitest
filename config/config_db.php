@@ -1,53 +1,12 @@
 <?php
-require 'aws.phar'; // Asegúrate de que la ruta sea correcta
-
-use Aws\SecretsManager\SecretsManagerClient;
-use Aws\Exception\AwsException;
-
 class DB extends DBmysql {
-    public $dbhost;
-    public $dbuser;
-    public $dbpassword;
-    public $dbdefault;
-    public $use_timezones = true;
-    public $use_utf8mb4 = true;
-    public $allow_myisam = false;
-    public $allow_datetime = false;
-    public $allow_signed_keys = false;
-
-    public function __construct() {
-        $this->loadSecrets();
-    }
-
-    private function loadSecrets() {
-        $client = new SecretsManagerClient([
-            'version' => 'latest',
-            'region' => 'us-east-1', // Por ejemplo, 'us-west-2'
-        ]);
-
-        try {
-            $result = $client->getSecretValue([
-                'SecretId' => 'MySQLProyectos', // ID del secreto en Secrets Manager
-            ]);
-
-            if (isset($result['SecretString'])) {
-                $secret = json_decode($result['SecretString'], true);
-                $this->dbhost = $secret['host'];
-                $this->dbuser = $secret['username'];
-                $this->dbpassword = $secret['password'];
-                $this->$dbdefault = $secret['dbdefault'];
-                echo "<script>
-                    console.log('DB Host: " . addslashes($this->dbhost) . "');
-                    console.log('DB User: " . addslashes($this->dbuser) . "');
-                    console.log('DB Password: " . addslashes($this->dbpassword) . "');
-                </script>";
-            }
-        } catch (AwsException $e) {
-            echo "Error al recuperar el secreto: " . $e->getMessage();
-        }
-    }
-
-    
+   public $dbhost = 'proyectos-instance-1.c8an9arwoaua.us-east-1.rds.amazonaws.com';
+   public $dbuser = 'admin';
+   public $dbpassword = 'Admin.2024%2A';
+   public $dbdefault = 'glpiprod';
+   public $use_timezones = true;
+   public $use_utf8mb4 = true;
+   public $allow_myisam = false;
+   public $allow_datetime = false;
+   public $allow_signed_keys = false;
 }
-
-?>
